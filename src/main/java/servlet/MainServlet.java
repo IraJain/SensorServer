@@ -44,35 +44,11 @@ public class MainServlet extends HttpServlet {
     	  }
     	  
     	
-    	
-    //	JSONObject jsonObj = requestParamsToJSON(req);
-    	
 
-    	
-    	 
-    	
-//    
-//     // save in db and Connect to db (singleton ?) may be inside dbaccess
-    	//DbAccess.save(jsonObj);
-//    /////////////////////////////////////////	
-//    	// Set Nest temp
-//    	//NestTemp.SetNestTemp();
-    	
-    	
     	
 
     }
-    public JSONObject requestParamsToJSON(ServletRequest req) {
-    	  JSONObject jsonObj = new JSONObject();
-    	  Map<String,String[]> params = req.getParameterMap();
-    	  for (Map.Entry<String,String[]> entry : params.entrySet()) {
-    	    String v[] = entry.getValue();
-    	    Object o = (v.length == 1) ? v[0] : v;
-    	    jsonObj.put(entry.getKey(), o);
-    	  }
-    	  
-    	  return jsonObj;
-    	}
+    
     
 }
 
