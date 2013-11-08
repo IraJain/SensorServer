@@ -6,7 +6,7 @@ public static void SetNestTemp(){
 	
 	// 
 	NestData data;
-	 data =  BidLogic.CalculateWinner();
+	// data =  BidLogic.CalculateWinner();
 	   
 	   // link to API to connect to Nest
 }
