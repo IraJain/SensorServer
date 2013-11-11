@@ -25,7 +25,6 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-    	
     	StringBuffer jb = new StringBuffer();
     	  String line = null;
     	  try {
@@ -37,10 +36,10 @@ public class MainServlet extends HttpServlet {
     	  try {
     	    JSONObject jsonObject = JSONObject.fromObject(jb.toString());
     	    System.out.println(jsonObject);
-    	   // DbAccess.save(jsonObject);
+    	    DbAccess.save(jsonObject);
     	  } catch (Exception e) {
     	    // crash and burn
-    	    throw new IOException("Error parsing JSON request string");
+    	    throw new IOException(jb.toString());
     	  }
     	  
     	

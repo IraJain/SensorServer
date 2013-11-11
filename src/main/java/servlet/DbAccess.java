@@ -41,30 +41,27 @@ public class DbAccess {
 		}
 		// Save json object to database
 		Statement stmt = null;
-		JSONObject info = jsonObject.getJSONObject("bidTemperature");
+		//JSONObject info = jsonObject.getJSONObject("bidTemperature");
 		
 		Map<String,String> out = new HashMap<String, String>();
 
-	    parse(info,out);
+	    parse(jsonObject,out);
 	    try {
 	//    c.setAutoCommit(false);
 	    stmt = c.createStatement();
-	    String user_id = out.get("user_id");
-	    String room = out.get("room_no");
-	    Long start_time = Long.parseLong(out.get("start_time"));
-	    Long end_time = Long.parseLong(out.get("end_time"));
-	    Double temperature = Double.parseDouble(out.get("temperature_f"));
-	    Integer bid_amount = Integer.parseInt(out.get("bid_amount"));
-	   // Long timestamp = out.get("timestamp");
 	    
-	    
-	    
+	    //room":"2","day":"3","month":"4","hours":"5","minutes":"6","temp":"6","coins":"6"
+	    //String user_id = out.get("user_id");
+	    String room = out.get("room");
+	    String day = out.get("day");
+	    String month = out.get("month");
+	    String hours = out.get("hours");
+	    String minutes = out.get("minutes");
+	    String temp = out.get("temp");
+	    String coins = out.get("coins");
 	    		
 	    
-	    String sql = "INSERT INTO  trial VALUES ('" + user_id +"','" + room  +  "');"; 
-	  //  String sql = "insert into test " +
-	 //                  "values ('" + user_id + "','" + room + "','" +  + "','" + 
-	 //                   + "','" +  + "','"   + out.get("bid_amount") + "','"  + out.get("timestamp")+ "');"; 
+	    String sql = "INSERT INTO  bid VALUES ('" + room +"','" + day  +  "','" + month  +  "','" + hours  +  "', ,'" + minutes  +  "','" + temp  +  "','" + coins  +  "');"; 
 	    stmt.executeUpdate(sql);
 	      stmt.close();
 	      c.commit();
