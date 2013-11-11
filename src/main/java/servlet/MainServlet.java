@@ -26,20 +26,26 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
     	StringBuffer jb = new StringBuffer();
+    	//System.out.println(req.getContentType());
     	  String line = null;
     	  try {
     	    BufferedReader reader = req.getReader();
     	    while ((line = reader.readLine()) != null)
     	      jb.append(line);
-    	  } catch (Exception e) { /*report an error*/ }
+    	  } catch (Exception e) { 
+    		e.printStackTrace();  
+    	  
+    	  /*report an error*/ }
 
     	  try {
+    		System.out.println(jb.toString());
     	    JSONObject jsonObject = JSONObject.fromObject(jb.toString());
     	    System.out.println(jsonObject);
     	    DbAccess.save(jsonObject);
     	  } catch (Exception e) {
     	    // crash and burn
-    	    throw new IOException(jb.toString());
+    	   // throw new IOException(jb.toString());
+    		  e.printStackTrace();
     	  }
     	  
     	

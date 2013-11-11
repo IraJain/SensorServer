@@ -1,8 +1,11 @@
 package servlet;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -41,27 +44,27 @@ public class DbAccess {
 		}
 		// Save json object to database
 		Statement stmt = null;
-		//JSONObject info = jsonObject.getJSONObject("bidTemperature");
+		JSONObject info = jsonObject.getJSONObject("bidTemperature");
 		
 		Map<String,String> out = new HashMap<String, String>();
 
-	    parse(jsonObject,out);
+	    parse(info,out);
 	    try {
 	//    c.setAutoCommit(false);
 	    stmt = c.createStatement();
 	    
-	    //room":"2","day":"3","month":"4","hours":"5","minutes":"6","temp":"6","coins":"6"
-	    //String user_id = out.get("user_id");
-	    String room = out.get("room");
-	    String day = out.get("day");
-	    String month = out.get("month");
-	    String hours = out.get("hours");
-	    String minutes = out.get("minutes");
-	    String temp = out.get("temp");
-	    String coins = out.get("coins");
-	    		
+	    //
 	    
-	    String sql = "INSERT INTO  bid VALUES ('" + room +"','" + day  +  "','" + month  +  "','" + hours  +  "', ,'" + minutes  +  "','" + temp  +  "','" + coins  +  "');"; 
+	    String user_id = out.get("user_id");
+	    String room = out.get("room_no");
+	    String start_time = out.get("start_time");
+	    String end_time = out.get("end_time");
+	    String temp = out.get("temperature_f");
+	    Integer bid_amount = Integer.parseInt(out.get("bid_amount"));
+	    String timestamp = out.get("timestamp");
+	       
+	    String sql = "INSERT INTO  test_table VALUES ('" + user_id +"','" + room  + "','" + start_time +  "','" + end_time  +  "','" + temp  +  "','" + bid_amount  +  "','" + timestamp +  "');";
+	    
 	    stmt.executeUpdate(sql);
 	      stmt.close();
 	      c.commit();
@@ -71,7 +74,6 @@ public class DbAccess {
 	        System.exit(0);
 	      }
 	    
-
 	    System.out.println(out.get("user_id"));
 	    
 		
@@ -115,5 +117,15 @@ public class DbAccess {
 	return rs;
 	}
 
- 
+	// To parse datetime to string back
+//	try
+//    {
+//        Date date = simpleDateFormat.parse(s);
+//
+//        System.out.println("date : "+simpleDateFormat.format(date));
+//    }
+//    catch (ParseException ex)
+//    {
+//        System.out.println("Exception "+ex);
+//    }
 }
