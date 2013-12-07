@@ -1,3 +1,18 @@
+/**
+Copyright (c) 2013 Carnegie Mellon University Silicon Valley. 
+All rights reserved. 
+
+This program and the accompanying materials are made available
+under the terms of dual licensing(GPL V2 for Research/Education
+purposes). GNU Public License v2.0 which accompanies this distribution
+is available at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+
+Please contact http://www.cmu.edu/silicon-valley/ if you have any 
+questions.
+ */
 package servlet;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,10 +28,20 @@ import net.sf.json.JSONObject;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DbAccess.
+ */
 public class DbAccess {
 
+	/** The c. */
 	public static Connection c = null ;
 	
+	/**
+	 * Connect.
+	 *
+	 * @return the connection
+	 */
 	private static Connection connect() {
 		//Connection c = null;
 		
@@ -33,8 +58,13 @@ public class DbAccess {
 	  }
 	
 	
-	
 	// create public save in db method 
+	/**
+	 * Save.
+	 *
+	 * @param sd the sd
+	 * @return the sensor data
+	 */
 	public static SensorData save(SensorData sd){
 		
 		float curWinTemp= 0;
@@ -83,6 +113,12 @@ public class DbAccess {
 
 
 	
+	/**
+	 * Gets the sensor data.
+	 *
+	 * @param query the query
+	 * @return the sensor data
+	 */
 	public static ArrayList<SensorData> getSensorData(String query){ 
 		if (c == null) { connect(); }
 		ArrayList<SensorData> sdArr = new ArrayList<SensorData>();
@@ -115,7 +151,41 @@ public class DbAccess {
 	
 	
 	
+	/**
+	 * Update sensor.
+	 *
+	 * @param user the user
+	 * @param bid the bid
+	 * @param tstmp the tstmp
+	 */
+	public static void updateSensor(String user, Integer bid, Long tstmp){ 
+		if (c == null) { connect(); }
+
+	try {
+	Statement stmt = null;
+		
+	stmt = c.createStatement();
+	String sql_query = "Update sensor set bid_amount = " + bid +  " where user_id = '" + user + "' and timestamp = "+ tstmp  ;
 	
+	stmt.executeUpdate(sql_query);
+	
+    stmt.close();
+    c.commit();	
+     } catch ( Exception e ) {
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    System.exit(0);
+  }
+
+	}
+	
+	
+	/**
+	 * Gets the current win.
+	 *
+	 * @param room the room
+	 * @param start_time the start_time
+	 * @return the current win
+	 */
 	public static float getCurrentWin(String room, Long start_time){ 
 		if (c == null) { connect(); }
 	float temperature = 0;
@@ -146,6 +216,14 @@ public class DbAccess {
 	
 	
 	
+	/**
+	 * Update credit.
+	 *
+	 * @param user the user
+	 * @param incr_by the incr_by
+	 * @param bid the bid
+	 * @return the int
+	 */
 	public static int updateCredit(String user,String incr_by, Integer bid){ 
 		if (c == null) { connect(); }
     int amt =0;
@@ -173,35 +251,72 @@ public class DbAccess {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	public static void updateSensor(String user, Integer bid, Long tstmp){ 
+	/**
+	 * Update user credit.
+	 *
+	 * @param user the user
+	 * @param incr_by the incr_by
+	 * @param credit the credit
+	 */
+	public static void updateUserCredit(String user,String incr_by, Integer credit){ 
 		if (c == null) { connect(); }
-
-	try {
+  
 	Statement stmt = null;
-		
-	stmt = c.createStatement();
-	String sql_query = "Update sensor set bid_amount = " + bid +  " where user_id = '" + user + "' and timestamp = "+ tstmp  ;
+	ResultSet rs = null;
+	try {
+		stmt = c.createStatement();
+
+	String sql_query = "Select * from credit where user_id = '" +user+ "' ;";
+	rs = stmt.executeQuery(sql_query);
+	
+	int amt = rs.getInt("amount") + credit;
+	if (amt < 0) {amt =0 ;}
+	sql_query = "Update credit set amount = "+amt+ ", inc_by_amount = "+ credit + ",last_inc = '" + incr_by + "' where user_id = '" +user+ "' ;";
 	
 	stmt.executeUpdate(sql_query);
-	
+    
     stmt.close();
     c.commit();	
      } catch ( Exception e ) {
     System.err.println( e.getClass().getName() + ": " + e.getMessage() );
     System.exit(0);
   }
-
+	
 	}
 	
+	/**
+	 * Gets the user credit.
+	 *
+	 * @param user the user
+	 * @return the user credit
+	 */
+	public static int getUserCredit(String user){ 
+		if (c == null) { connect(); }
+    int crediLeft =0;
+	Statement stmt = null;
+	ResultSet rs = null;
+	try {
+		stmt = c.createStatement();
+
+	String sql_query = "Select amount from credit where user_id = '" +user+ "' ;";
+	rs = stmt.executeQuery(sql_query);
+	
+	crediLeft = rs.getInt("amount");
+	
+    
+    stmt.close();
+    
+     } catch ( Exception e ) {
+    System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+    System.exit(0);
+  }
+	return crediLeft;
+	}
+		
 	
 	
+	
+
 
 	
 	

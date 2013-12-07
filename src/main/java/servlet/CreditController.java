@@ -17,31 +17,33 @@ package servlet;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class CurrentWinner.
+ * The Class CreditController.
  */
-public class CurrentWinner {
-	 
- 	/**
- 	 * Gets the winner.
- 	 *
- 	 * @param room the room
- 	 * @param start the start
- 	 * @return the winner
- 	 */
- 	float getWinner(String room,Long start){
-		float wintemp = 0;
-		
-		 
-		 try {
-			 wintemp = DbAccess.getCurrentWin(room,start);
-			
-			}
-			catch ( Exception e ) {
-		        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-		        System.exit(0);
-		      }
-		 return wintemp;
+public class CreditController {
 	
-		}
+	/**
+	 * User credit.
+	 *
+	 * @param user the user
+	 * @return the int
+	 */
+	public int userCredit(String user) {
+		int creditLeft = DbAccess.getUserCredit(user);
+		return creditLeft;
+	}
+	
+	/**
+	 * Remaining credit.
+	 *
+	 * @param user the user
+	 * @param incr_by the incr_by
+	 * @param bid the bid
+	 * @return the int
+	 */
+	public int remainingCredit(String user,String incr_by, Integer bid) {
+		int creditLeft = DbAccess.updateCredit(user,incr_by,bid); 
+		return creditLeft;
+	}
+
 
 }

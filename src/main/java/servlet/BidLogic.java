@@ -1,10 +1,36 @@
+/**
+Copyright (c) 2013 Carnegie Mellon University Silicon Valley. 
+All rights reserved. 
+
+This program and the accompanying materials are made available
+under the terms of dual licensing(GPL V2 for Research/Education
+purposes). GNU Public License v2.0 which accompanies this distribution
+is available at http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+
+Please contact http://www.cmu.edu/silicon-valley/ if you have any 
+questions.
+ */
 package servlet;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BidLogic.
+ */
 public class BidLogic {
+
+/**
+ * Calculate winner.
+ *
+ * @param start_time the start_time
+ * @return the array list
+ */
 static ArrayList<NestData> CalculateWinner(Long start_time){ 
 
 
@@ -22,6 +48,7 @@ static ArrayList<NestData> CalculateWinner(Long start_time){
     Long tstmp_user;
    
     ArrayList<NestData> nestArr = new ArrayList<NestData>();
+    CreditController cred_control = new CreditController();
     
 	try {
 		
@@ -42,7 +69,7 @@ static ArrayList<NestData> CalculateWinner(Long start_time){
 	    bid_amount = sd.getBid_amount();
 		  
 	
-		 // create NEST arraye with winning temp
+		 // create NEST array with winning temperature
 		   NestData nest = new NestData();
 		   nest.setRoom(room);
 		   nest.setStart(start);
@@ -52,8 +79,9 @@ static ArrayList<NestData> CalculateWinner(Long start_time){
 		   nestArr.add(nest);
 		
 		    // Remove credit from winning user and adjust all future bids for the user
-	        remaining_credit  = DbAccess.updateCredit(user_id,"SenseServer",bid_amount); 
-		System.out.println(remaining_credit);
+		   
+	        remaining_credit  = cred_control.remainingCredit(user_id,"SenseServer",bid_amount); 
+		
 		
 				   
 		   // get all records of user for all room  where meeting start time >current time + 30 min 
@@ -64,15 +92,14 @@ static ArrayList<NestData> CalculateWinner(Long start_time){
 	    	 bid_amount_user = sd_user.getBid_amount();
 	    	 tstmp_user = sd_user.getTimestamp();
 	    	 
-	    		System.out.println(bid_amount_user);
-	    		
+	    	
 
 			   if (bid_amount_user> remaining_credit){
 			   new_bid = remaining_credit;
 			   System.out.println("credit - "+ user_id);
-				System.out.println(new_bid);
+				
 			   DbAccess.updateSensor(user_id,new_bid,tstmp_user);
-			   System.out.println("updated");
+			  
 			   }
 		  
 			   else{
