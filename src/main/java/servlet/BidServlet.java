@@ -80,7 +80,7 @@ public class BidServlet extends HttpServlet {
     	
     	String uri = req.getRequestURI();
 
-    	
+    	// bids and saves value in db
        if (uri.equalsIgnoreCase("//smartSense/bid")) 
         	{ 
     	   try{
@@ -113,7 +113,8 @@ public class BidServlet extends HttpServlet {
     		  e.printStackTrace();
     	  }
     	}
-    	  
+    	 
+       // calls bidlogic in loop and controls NEST
     	else if (uri.equalsIgnoreCase("//smartSense/nest")) {
  	     // call bid logic - to remove should be in cron job
     		
@@ -122,6 +123,7 @@ public class BidServlet extends HttpServlet {
  	     
     	}
     	
+       // gets current winner for the room. 
     	else if (uri.equalsIgnoreCase("//smartSense/currentWin")) {
     		System.out.println("inside current");
  		   // call current winner and return the response to main servelet
