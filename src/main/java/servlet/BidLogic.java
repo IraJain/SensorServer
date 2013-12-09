@@ -15,7 +15,6 @@ questions.
  */
 package servlet;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 

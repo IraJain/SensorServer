@@ -18,17 +18,11 @@ package servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TimeZone;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +46,9 @@ import net.sf.json.JSONObject;
     )
 public class BidServlet extends HttpServlet {
 	
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/** 
+	 * Service method calls do post with request and response
+	 * 
 	 */
 	protected void service (HttpServletRequest req, HttpServletResponse resp) {		
 	try{
@@ -64,8 +59,9 @@ public class BidServlet extends HttpServlet {
  	  }	
 	}
 
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /** 
+     * doPost with request and response objects from client application
+     * @param req, resp
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
