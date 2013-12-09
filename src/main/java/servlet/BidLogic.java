@@ -24,6 +24,15 @@ import java.util.ArrayList;
  * The Class BidLogic.
  */
 public class BidLogic {
+	private static CreditController cred_control;
+	
+	public BidLogic(){
+		cred_control = new CreditController();
+	}
+	
+	public void setCreditController(CreditController creditController){
+		cred_control = creditController;
+	}
 
 /**
  * Calculate winner.
@@ -31,7 +40,7 @@ public class BidLogic {
  * @param start_time the start_time
  * @return the array list
  */
-static ArrayList<NestData> CalculateWinner(Long start_time){ 
+public static ArrayList<NestData> CalculateWinner(Long start_time){ 
 
 
 	String query; 
@@ -48,7 +57,6 @@ static ArrayList<NestData> CalculateWinner(Long start_time){
     Long tstmp_user;
    
     ArrayList<NestData> nestArr = new ArrayList<NestData>();
-    CreditController cred_control = new CreditController();
     
 	try {
 		
