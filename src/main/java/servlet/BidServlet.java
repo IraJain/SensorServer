@@ -117,8 +117,7 @@ public class BidServlet extends HttpServlet {
     	else if (uri.equalsIgnoreCase("//smartSense/nest")) {
  	     // call bid logic - to remove should be in cron job
     		
- 	    NestTemp nt = new NestTemp();
- 	    nt.SetNestTemp();
+ 	    NestTemp.SetNestTemp();
  	     
     	}
     	
