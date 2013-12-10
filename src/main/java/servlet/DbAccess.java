@@ -261,7 +261,7 @@ public class DbAccess {
 	 */
 	public static void updateUserCredit(String user,String incr_by, Integer credit){ 
 		if (c == null) { connect(); }
-  
+		int amt = 0;
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
@@ -270,7 +270,7 @@ public class DbAccess {
 	String sql_query = "Select * from credit where user_id = '" +user+ "' ;";
 	rs = stmt.executeQuery(sql_query);
 	 if (rs.isBeforeFirst()){
-	int amt = rs.getInt("amount") + credit; }
+	 amt = rs.getInt("amount") + credit; }
 	if (amt < 0) {amt =0 ;}
 	sql_query = "Update credit set amount = "+amt+ ", inc_by_amount = "+ credit + ",last_inc = '" + incr_by + "' where user_id = '" +user+ "' ;";
 	
