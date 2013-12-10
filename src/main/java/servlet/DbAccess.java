@@ -230,9 +230,13 @@ public class DbAccess {
 		stmt = c.createStatement();
 
 	String sql_query = "Select * from credit where user_id = '" +user+ "' ;";
+	
 	rs = stmt.executeQuery(sql_query);
 	
+	 if (rs.isBeforeFirst()){
 	amt = rs.getInt("amount") - bid;
+	 }
+	 
 	if (amt < 0) {amt =0 ;}
 	sql_query = "Update credit set amount = "+amt+ ", inc_by_amount = -"+ bid + ",last_inc = '" + incr_by + "' where user_id = '" +user+ "' ;";
 	
@@ -265,8 +269,8 @@ public class DbAccess {
 
 	String sql_query = "Select * from credit where user_id = '" +user+ "' ;";
 	rs = stmt.executeQuery(sql_query);
-	
-	int amt = rs.getInt("amount") + credit;
+	 if (rs.isBeforeFirst()){
+	int amt = rs.getInt("amount") + credit; }
 	if (amt < 0) {amt =0 ;}
 	sql_query = "Update credit set amount = "+amt+ ", inc_by_amount = "+ credit + ",last_inc = '" + incr_by + "' where user_id = '" +user+ "' ;";
 	
@@ -297,8 +301,8 @@ public class DbAccess {
 
 	String sql_query = "Select amount from credit where user_id = '" +user+ "' ;";
 	rs = stmt.executeQuery(sql_query);
-	
-	crediLeft = rs.getInt("amount");
+	 if (rs.isBeforeFirst()){
+	crediLeft = rs.getInt("amount");}
 	
     
     stmt.close();
