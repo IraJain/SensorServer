@@ -195,7 +195,7 @@ public class DbAccess {
 
 		 ResultSet rs = stmt.executeQuery(query);   
 		
-		 if (rs.next()){
+		 if (rs.isBeforeFirst()){
 				 
 		 temperature = rs.getFloat("temperature");}
 
