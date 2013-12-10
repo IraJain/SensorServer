@@ -52,6 +52,7 @@ public class BidServlet extends HttpServlet {
 	 */
 	protected void service (HttpServletRequest req, HttpServletResponse resp) {		
 	try{
+		System.out.println("bid service");	
 	doPost(req,resp);
 	}  catch (Exception e) {
   
@@ -75,7 +76,9 @@ public class BidServlet extends HttpServlet {
     	SensorData sd_winner = new SensorData();   	
     	
     	String uri = req.getRequestURI();
-
+    	System.out.println("bid servlet");
+    	System.out.println(uri);
+    	
     	// bids and saves value in db
        if (uri.equalsIgnoreCase("//smartSense/bid")) 
         	{ 

@@ -194,7 +194,10 @@ public class DbAccess {
 		"AND s.bid_amount= maxresults.maxbid AND s.start_time = maxresults.start_time;";
 
 		 ResultSet rs = stmt.executeQuery(query);   
-		 temperature = rs.getFloat("temperature");
+		
+		 if (rs!= null){
+				 
+		 temperature = rs.getFloat("temperature");}
 
       rs.close();
 		 stmt.close();

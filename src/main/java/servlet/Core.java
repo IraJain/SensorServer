@@ -48,9 +48,11 @@ public class Core  extends HttpServlet {
 		 
 		 
 		String web_pattern = uri.replace("/sensor", "");
+		System.out.println(web_pattern);
 
 	if (web_pattern.matches("/smartSense/.*"))			 
       	{
+		System.out.println("smartsense core");
 			 
 			  RequestDispatcher dispatcher = context.getRequestDispatcher(web_pattern);  
 			  try {  
