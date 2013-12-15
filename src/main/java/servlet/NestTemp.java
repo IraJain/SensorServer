@@ -40,8 +40,8 @@ public static void SetNestTemp(){
 	Long current_time = System.currentTimeMillis(); 
 	
 	//Start time = current time + 30 min
-	//Long start_time = current_time + 1800000;
-	Long start_time = current_time + 7200;
+	Long start_time = current_time + 1800000;
+	//Long start_time = current_time + 7200;
 	 
 	ArrayList<NestData> nestArr = new ArrayList<NestData>();
 	nestArr =  BidLogic.CalculateWinner(start_time);
